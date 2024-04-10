@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_REGISTRY_CREDENTIALS = 'your-registry-credentials'
-        DOCKER_REGISTRY_URL = 'your-docker-registry-url'
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -28,15 +23,6 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry(DOCKER_REGISTRY_URL, DOCKER_REGISTRY_CREDENTIALS) {
-                        docker.image('basic-node-backend').push()
-                    }
-                }
-            }
-        }
 
         stage('Deploy') {
             steps {
@@ -46,3 +32,4 @@ pipeline {
         }
     }
 }
+
